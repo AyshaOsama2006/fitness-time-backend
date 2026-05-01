@@ -1,120 +1,98 @@
-const { Product } = require('../models');
+const db = require('../models');
+const Product = db.Product;
 
+async function createProduct(req, res) {
+  try {
 
-exports.createProduct = async (req, res) => {
-    try {
-        const { name, price, description, stock, image } = req.body;
+    const product = await Product.create({
+      name: req.body.name,
+      price: req.body.price,
+      description: req.body.description,
+      stock: req.body.stock,
+      image: req.body.image
+    });
 
-        const product = await Product.create({
-            name,
-            price,
-            description,
-            stock,
-            image
-        });
+    res.status(201).json(product);
 
-        res.status(201).json({
-            message: 'Product created successfully',
-            product
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: 'Error creating product',
-            error: error.message
-        });
+  } catch (err) {
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+}
+
+async function getAllProducts(req, res) {
+  try {
+
+    const products = await Product.findAll();
+
+    res.json(products);
+
+  } catch (err) {
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+}
+
+async function getProductById(req, res) {
+  try {
+
+    const product = await Product.findByPk(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
     }
-};
 
+    res.json(product);
 
-exports.getAllProducts = async (req, res) => {
-    try {
-        const products = await Product.findAll();
+  } catch (err) {
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+}
 
-        res.status(200).json(products);
-    } catch (error) {
-        res.status(500).json({
-            message: 'Error fetching products',
-            error: error.message
-        });
+async function updateProduct(req, res) {
+  try {
+
+    const product = await Product.findByPk(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
     }
-};
 
-exports.getProductById = async (req, res) => {
-    try {
-        const { id } = req.params;
+    await product.update({
+      name: req.body.name,
+      price: req.body.price,
+      description: req.body.description,
+      stock: req.body.stock,
+      image: req.body.image
+    });
 
-        const product = await Product.findByPk(id);
+    res.json(product);
 
-        if (!product) {
-            return res.status(404).json({
-                message: 'Product not found'
-            });
-        }
+  } catch (err) {
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+}
 
-        res.status(200).json(product);
-    } catch (error) {
-        res.status(500).json({
-            message: 'Error fetching product',
-            error: error.message
-        });
+async function deleteProduct(req, res) {
+  try {
+
+    const product = await Product.findByPk(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
     }
-};
 
-exports.updateProduct = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { name, price, description, stock, image } = req.body;
+    await product.destroy();
 
-        const product = await Product.findByPk(id);
+    res.json({ message: 'Product deleted successfully' });
 
-        if (!product) {
-            return res.status(404).json({
-                message: 'Product not found'
-            });
-        }
+  } catch (err) {
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+}
 
-        await product.update({
-            name,
-            price,
-            description,
-            stock,
-            image
-        });
-
-        res.status(200).json({
-            message: 'Product updated successfully',
-            product
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: 'Error updating product',
-            error: error.message
-        });
-    }
-};
-
-
-exports.deleteProduct = async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        const product = await Product.findByPk(id);
-
-        if (!product) {
-            return res.status(404).json({
-                message: 'Product not found'
-            });
-        }
-
-        await product.destroy();
-
-        res.status(200).json({
-            message: 'Product deleted successfully'
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: 'Error deleting product',
-            error: error.message
-        });
-    }
+module.exports = {
+  createProduct,
+  getAllProducts,
+  getProductById,
+  updateProduct,
+  deleteProduct
 };
