@@ -3,8 +3,10 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
+
   class Cart extends Model {
     static associate(models) {
+
       Cart.belongsTo(models.User, {
         foreignKey: 'User_id'
       });
@@ -18,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       Cart.hasMany(models.Contains, {
         foreignKey: 'Cart_id'
       });
+
     }
   }
 
@@ -27,13 +30,13 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
+
     status: DataTypes.STRING,
     User_id: DataTypes.INTEGER
+
   }, {
     sequelize,
     modelName: 'Cart',
-    tableName: 'Carts',
-    underscored: true
   });
 
   return Cart;
