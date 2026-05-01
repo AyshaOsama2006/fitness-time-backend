@@ -3,25 +3,25 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Contains', {
-      Cart_id: {
+      cartId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         references: {
           model: 'Carts',
-          key: 'Cart_id'
+          key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
 
-      product_id: {
+      productId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         references: {
           model: 'Products',
-          key: 'product_id'
+          key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
@@ -33,17 +33,17 @@ module.exports = {
         defaultValue: 1
       },
 
-      price_at_time: {
+      priceAtTime: {
         type: Sequelize.FLOAT,
         allowNull: false
       },
 
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
 
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }

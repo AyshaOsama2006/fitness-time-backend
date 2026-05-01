@@ -9,19 +9,19 @@ module.exports = (sequelize, DataTypes) => {
 
       Product.belongsToMany(models.Cart, {
         through: models.Contains,
-        foreignKey: 'product_id',
-        otherKey: 'Cart_id'
+        foreignKey: 'productId',
+        otherKey: 'cartId'
       });
 
       Product.hasMany(models.Contains, {
-        foreignKey: 'product_id'
+        foreignKey: 'productId'
       });
 
     }
   }
 
   Product.init({
-    product_id: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true

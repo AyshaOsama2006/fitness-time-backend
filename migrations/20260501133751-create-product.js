@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Products', {
-      product_id: {
+      id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
@@ -36,12 +36,12 @@ module.exports = {
         allowNull: true
       },
 
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
 
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }
