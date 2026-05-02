@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectModuleManager">
@@ -5,4 +6,13 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/fitness-time-backend.iml" filepath="$PROJECT_DIR$/.idea/fitness-time-backend.iml" />
     </modules>
   </component>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/fitness-time-backend.iml" filepath="$PROJECT_DIR$/.idea/fitness-time-backend.iml" />
+    </modules>
+  </component>
+>>>>>>> f5a14c8f73ad69e9ec95c4e90c57716ad933fa27
 </project>
