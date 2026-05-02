@@ -10,11 +10,13 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsToMany(models.Cart, {
         through: models.Contains,
         foreignKey: 'productId',
-        otherKey: 'cartId'
+        otherKey: 'cartId',
+        as: 'carts'
       });
 
       Product.hasMany(models.Contains, {
-        foreignKey: 'productId'
+        foreignKey: 'productId',
+        as: 'containsItems'
       });
 
     }
