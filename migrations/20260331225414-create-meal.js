@@ -9,9 +9,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      planId: {
-        type: Sequelize.INTEGER
-      },
+     planId: {
+  type: Sequelize.INTEGER,
+  references: { model: 'MealPlans', key: 'id' },
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE'
+},
       name: {
         type: Sequelize.STRING
       },

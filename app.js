@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 
 const nutritionRoutes = require('./routes/nutritionRoutes');
-const userRoutes = require('./routes/userRouts');
+const userRoutes = require('./routes/userRoutes');
 const membershipRoutes = require('./routes/membershipRoutes');
 const subscriptionRoutes = require('./routes/subscriptionRoutes');
 const productRoutes = require('./routes/productRoutes');

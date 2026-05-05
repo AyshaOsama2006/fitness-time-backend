@@ -7,7 +7,7 @@ module.exports = {
     await queryInterface.renameColumn('Bookings', 'trainer_id', 'trainerId');
     await queryInterface.renameColumn('Bookings', 'booking_date', 'bookingDate');
     await queryInterface.renameColumn('Bookings', 'booking_time', 'bookingTime');
-    await queryInterface.renameColumn('Bookings', 'created_at', 'createdAt');
+  
 
   },
 
