@@ -12,11 +12,13 @@
   "type": "commonjs",
   "dependencies": {
     "@google/genai": "^1.51.0",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "groq-sdk": "^1.1.2",
-    "mysql2": "^3.20.0",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.22.3",
     "sequelize": "^6.37.8",
     "sequelize-cli": "^6.6.5"
   }
