@@ -1,18 +1,32 @@
 const db = require('../models');
 const User = db.User;
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
 
 async function getAllUsers(req, res) {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({
+      attributes: { exclude: ['password'] } 
+    });
+
     res.json(users);
   } catch (err) {
     res.status(500).json({ message: 'Internal Server Error', error: err.message });
   }
 }
 
+
 async function getUserById(req, res) {
   try {
-    const user = await User.findByPk(req.params.id);
+
+    if (req.user.id != req.params.id) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    const user = await User.findByPk(req.params.id, {
+      attributes: { exclude: ['password'] }
+    });
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -25,6 +39,7 @@ async function getUserById(req, res) {
   }
 }
 
+
 async function createUser(req, res) {
   try {
 
@@ -32,10 +47,12 @@ async function createUser(req, res) {
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
     const user = await User.create({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      password: hashedPassword,
       age: req.body.age,
       height: req.body.height,
       weight: req.body.weight,
@@ -43,36 +60,55 @@ async function createUser(req, res) {
       fitnessGoal: req.body.fitnessGoal
     });
 
-    res.status(201).json(user);
+    const { password, ...userData } = user.toJSON();
+
+    res.status(201).json(userData);
 
   } catch (err) {
     res.status(500).json({ message: 'Internal Server Error', error: err.message });
   }
 }
 
+
 async function loginUser(req, res) {
   try {
 
     const user = await User.findOne({
-      where: {
-        email: req.body.email,
-        password: req.body.password
-      }
+      where: { email: req.body.email }
     });
 
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    res.json(user);
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET || 'secretKey',
+      { expiresIn: '1d' }
+    );
+
+    const { password, ...userData } = user.toJSON();
+
+    res.json({ user: userData, token });
 
   } catch (err) {
     res.status(500).json({ message: 'Internal Server Error', error: err.message });
   }
 }
 
+
 async function deleteUser(req, res) {
   try {
+
+    if (req.user.id != req.params.id) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
 
     const user = await User.findByPk(req.params.id);
 
@@ -88,6 +124,7 @@ async function deleteUser(req, res) {
     res.status(500).json({ message: 'Internal Server Error', error: err.message });
   }
 }
+
 
 module.exports = {
   getAllUsers,
