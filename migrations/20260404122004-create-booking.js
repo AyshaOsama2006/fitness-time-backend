@@ -1,5 +1,5 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Bookings', {
@@ -9,37 +9,43 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+
       booking_id: {
         type: Sequelize.INTEGER
       },
-      user_id: {
+
+      userId: {
         type: Sequelize.INTEGER
       },
-      trainer_id: {
+
+      trainerId: {
         type: Sequelize.INTEGER
       },
-      booking_date: {
+
+      bookingDate: {
         type: Sequelize.DATE
       },
-      booking_time: {
+
+      bookingTime: {
         type: Sequelize.TIME
       },
+
       status: {
         type: Sequelize.STRING
       },
-      created_at: {
-        type: Sequelize.DATE
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
+
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Bookings');
   }

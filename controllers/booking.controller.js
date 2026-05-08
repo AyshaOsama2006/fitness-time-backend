@@ -1,12 +1,34 @@
 const { Booking, Trainer } = require('../models');
 
-
 exports.createBooking = async (req, res) => {
   try {
-    const booking = await Booking.create(req.body);
+
+    console.log("REQ USER:", req.user);
+
+    const booking = await Booking.create({
+
+      userId: req.user.id,
+
+      trainerId: req.body.trainerId,
+
+      bookingDate: req.body.bookingDate,
+
+      bookingTime: req.body.bookingTime,
+
+      status: req.body.status
+
+    });
+
     res.status(201).json(booking);
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+
+    console.log(err);
+
+    res.status(500).json({
+      error: err.message
+    });
+
   }
 };
 

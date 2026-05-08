@@ -8,15 +8,15 @@
   },
   "test": {
     "username": "root",
-    "password": "root123",
-    "database": "database_test",
+    "password": "Ay3sh0a7!@#",
+    "database": "fitness_time_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "root123",
-    "database": "database_production",
+    "password": "Ay3sh0a7!@#",
+    "database": "fitness_time_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }

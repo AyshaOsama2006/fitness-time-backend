@@ -2,45 +2,46 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Trainers', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      trainer_id: {
-        type: Sequelize.INTEGER
-      },
-      name: {
-        type: Sequelize.STRING
-      },
-      specialization: {
-        type: Sequelize.STRING
-      },
-      bio: {
-        type: Sequelize.STRING
-      },
-      image: {
-        type: Sequelize.STRING
-      },
-      available_day: {
-        type: Sequelize.STRING
-      },
-      available_time: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+   await queryInterface.createTable('Trainers', {
+  id: {
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: Sequelize.INTEGER
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Trainers');
+
+  name: {
+    type: Sequelize.STRING
+  },
+
+  specialization: {
+    type: Sequelize.STRING
+  },
+
+  bio: {
+    type: Sequelize.STRING
+  },
+
+  image: {
+    type: Sequelize.STRING
+  },
+
+  available_day: {
+    type: Sequelize.STRING
+  },
+
+  available_time: {
+    type: Sequelize.STRING
+  },
+
+  createdAt: {
+    allowNull: false,
+    type: Sequelize.DATE
+  },
+
+  updatedAt: {
+    allowNull: false,
+    type: Sequelize.DATE
   }
-};
+});
+  
