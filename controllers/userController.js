@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 async function getAllUsers(req, res) {
   try {
     const users = await User.findAll({
-      attributes: { exclude: ['password'] } 
+      attributes: { exclude: ['password'] }
     });
 
     res.json(users);
@@ -47,6 +47,14 @@ async function createUser(req, res) {
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
+    const existingUser = await User.findOne({
+      where: { email: req.body.email }
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     const user = await User.create({
@@ -71,17 +79,21 @@ async function createUser(req, res) {
 
 
 async function loginUser(req, res) {
+
   try {
 
     const user = await User.findOne({
       where: { email: req.body.email }
     });
 
+
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
+
     const isMatch = await bcrypt.compare(req.body.password, user.password);
+
 
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
@@ -89,7 +101,7 @@ async function loginUser(req, res) {
 
     const token = jwt.sign(
       { id: user.id, email: user.email },
-      process.env.JWT_SECRET || 'secretKey',
+      process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );
 
@@ -98,7 +110,12 @@ async function loginUser(req, res) {
     res.json({ user: userData, token });
 
   } catch (err) {
-    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+
+    console.log("LOGIN ERROR:", err);
+
+    res.status(500).json({
+      message: err.message
+    });
   }
 }
 
