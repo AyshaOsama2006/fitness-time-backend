@@ -2,8 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-  await queryInterface.removeColumn('Trainers', 'trainer_id');
+  async up(queryInterface, Sequelize) {
 
     await queryInterface.changeColumn('Trainers', 'bio', {
       type: Sequelize.TEXT
@@ -20,11 +19,7 @@ module.exports = {
     });
   },
 
-  async down (queryInterface, Sequelize) {
-   await queryInterface.addColumn('Trainers', 'trainer_id', {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    });
+  async down(queryInterface, Sequelize) {
 
     await queryInterface.changeColumn('Trainers', 'bio', {
       type: Sequelize.STRING
