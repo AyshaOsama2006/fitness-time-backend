@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { getMealPlan, calculateNutrition, analyzeCalories } = require('../controllers/nutritionController');
 const authMiddleware = require('../middleware/authMiddleware');
+const nutritionController = require('../controllers/nutritionController');
 
 router.post('/meal-plan', authMiddleware, getMealPlan);
 router.post('/calculate', authMiddleware, calculateNutrition);

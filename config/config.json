@@ -1,22 +1,22 @@
 {
   "development": {
     "username": "root",
-    "password": "Ay3sh0a7!@#",
-    "database": "fitness_time_db",
+    "password": "root123",
+    "database": "fitness_time",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "Ay3sh0a7!@#",
-    "database": "fitness_time_db",
+    "password": "root123",
+    "database": "fitness_time",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "Ay3sh0a7!@#",
-    "database": "fitness_time_db",
+    "password": "root123",
+    "database": "fitness_time",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
