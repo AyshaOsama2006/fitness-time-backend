@@ -167,4 +167,36 @@ Return ONLY a JSON object with: detectedFoods, estimatedCalories, protein, carbo
   }
 };
 
-module.exports = { getMealPlan, calculateNutrition, analyzeCalories, authMiddleware };
+
+
+
+async function getNutrition(req, res) {
+  try {
+    const nutrition = await Nutrition.findOne({
+      where: {
+        userId: req.params.userId
+      },
+      order: [["createdAt", "DESC"]]
+    });
+
+    if (!nutrition) {
+      return res.status(404).json({
+        message: "No nutrition data found"
+      });
+    }
+
+    res.json(nutrition);
+
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
+    });
+  }
+}
+
+
+module.exports = { getMealPlan, calculateNutrition, analyzeCalories, authMiddleware,getNutrition };
+
+
+
+

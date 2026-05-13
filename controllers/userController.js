@@ -4,19 +4,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 
-async function getAllUsers(req, res) {
-  try {
-    const users = await User.findAll({
-      attributes: { exclude: ['password'] }
-    });
-
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ message: 'Internal Server Error', error: err.message });
-  }
-}
-
-
 async function getUserById(req, res) {
   try {
 
@@ -144,7 +131,6 @@ async function deleteUser(req, res) {
 
 
 module.exports = {
-  getAllUsers,
   getUserById,
   createUser,
   loginUser,
