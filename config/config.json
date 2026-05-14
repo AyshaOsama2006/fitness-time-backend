@@ -1,23 +1,23 @@
 {
   "development": {
     "username": "root",
-    "password": "Uxl@80145",
-    "database": "fitness_time_db",
-    "host": "localhost",
+    "password": "obayda",
+    "database": "fitness_time",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "Uxl@80145",
-    "database": "fitness_time_db",
-    "host": "localhost",
+    "password": "obayda",
+    "database": "fitness_time",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "Uxl@80145",
-    "database": "fitness_time_db",
-    "host": "localhost",
+    "password": "obayda",
+    "database": "fitness_time",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   }
 }

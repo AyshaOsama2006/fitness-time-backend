@@ -7,7 +7,7 @@ async function createCart(req, res) {
   try {
 
     const cart = await Cart.create({
-      User_id: req.body.User_id,
+      userId: req.body.userId,
       status: req.body.status || 'active'
     });
 
@@ -46,13 +46,13 @@ async function getCartById(req, res) {
 async function addProductToCart(req, res) {
   try {
 
-    const cart = await Cart.findByPk(req.body.Cart_id);
+    const cart = await Cart.findByPk(req.body.cartId);
 
     if (!cart) {
       return res.status(404).json({ message: 'Cart not found' });
     }
 
-    const product = await Product.findByPk(req.body.product_id);
+    const product = await Product.findByPk(req.body.productId);
 
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
@@ -60,8 +60,8 @@ async function addProductToCart(req, res) {
 
     const existingItem = await Contains.findOne({
       where: {
-        Cart_id: req.body.Cart_id,
-        product_id: req.body.product_id
+        cartId: req.body.cartId,
+        productId: req.body.productId
       }
     });
 
@@ -75,8 +75,8 @@ async function addProductToCart(req, res) {
     }
 
     const item = await Contains.create({
-      Cart_id: req.body.Cart_id,
-      product_id: req.body.product_id,
+      cartId: req.body.cartId,
+      productId: req.body.productId,
       quantity: req.body.quantity || 1,
       price_at_time: product.price
     });
@@ -93,8 +93,8 @@ async function updateCartItem(req, res) {
 
     const item = await Contains.findOne({
       where: {
-        Cart_id: req.params.Cart_id,
-        product_id: req.params.product_id
+        cartId: req.params.cartId,
+        productId: req.params.productId
       }
     });
 
@@ -118,8 +118,8 @@ async function removeProductFromCart(req, res) {
 
     const item = await Contains.findOne({
       where: {
-        Cart_id: req.params.Cart_id,
-        product_id: req.params.product_id
+        cartId: req.params.cartId,
+        productId: req.params.productId
       }
     });
 
