@@ -3,13 +3,14 @@ const Product = db.Product;
 
 async function createProduct(req, res) {
   try {
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : req.body.image || null;
 
     const product = await Product.create({
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
       stock: req.body.stock,
-      image: req.body.image
+      image: imagePath
     });
 
     res.status(201).json(product);
@@ -56,13 +57,20 @@ async function updateProduct(req, res) {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    await product.update({
+    const updates = {
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
-      stock: req.body.stock,
-      image: req.body.image
-    });
+      stock: req.body.stock
+    };
+
+    if (req.file) {
+      updates.image = `/uploads/${req.file.filename}`;
+    } else if (req.body.image !== undefined) {
+      updates.image = req.body.image;
+    }
+
+    await product.update(updates);
 
     res.json(product);
 
