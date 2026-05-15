@@ -34,7 +34,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    role: {
+      type: DataTypes.ENUM('user', 'admin', 'coach'),
+      defaultValue: 'user',
+      allowNull: false
 
+    },
     age: DataTypes.INTEGER,
     height: DataTypes.FLOAT,
     weight: DataTypes.FLOAT,
@@ -44,7 +49,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
-  });
+     tableName: 'Users',
+      timestamps: true
+});
 
   return User;
 };
