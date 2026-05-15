@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
 
       Product.hasMany(models.OrderItem, {
         foreignKey: 'productId',
-        as: 'orderItems'
+        as: 'orderItems',
+        onDelete: 'CASCADE'
       });
 
     }
@@ -35,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
     },
 
     name: DataTypes.STRING,
+    category: {
+      type: DataTypes.STRING,
+      defaultValue: 'Equipment'
+    },
     price: DataTypes.FLOAT,
     description: DataTypes.TEXT,
     stock: DataTypes.INTEGER,

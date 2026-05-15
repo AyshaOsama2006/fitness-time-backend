@@ -7,6 +7,7 @@ async function createProduct(req, res) {
 
     const product = await Product.create({
       name: req.body.name,
+      category: req.body.category || 'Equipment',
       price: req.body.price,
       description: req.body.description,
       stock: req.body.stock,
@@ -16,6 +17,15 @@ async function createProduct(req, res) {
     res.status(201).json(product);
 
   } catch (err) {
+    if (
+      err.name === 'SequelizeForeignKeyConstraintError' ||
+      err?.parent?.code === 'ER_ROW_IS_REFERENCED_2'
+    ) {
+      return res.status(400).json({
+        message: 'Cannot delete product with existing orders.'
+      });
+    }
+
     res.status(500).json({ message: 'Internal Server Error', error: err.message });
   }
 }
@@ -64,6 +74,10 @@ async function updateProduct(req, res) {
       stock: req.body.stock
     };
 
+    if (req.body.category !== undefined) {
+      updates.category = req.body.category;
+    }
+
     if (req.file) {
       updates.image = `/uploads/${req.file.filename}`;
     } else if (req.body.image !== undefined) {
@@ -81,7 +95,6 @@ async function updateProduct(req, res) {
 
 async function deleteProduct(req, res) {
   try {
-
     const product = await Product.findByPk(req.params.id);
 
     if (!product) {
