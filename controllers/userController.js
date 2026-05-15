@@ -4,10 +4,23 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 
+async function getAllUsers(req, res) {
+  try {
+    const users = await User.findAll({
+      attributes: { exclude: ['password'] }
+    });
+
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+}
+
+
 async function getUserById(req, res) {
   try {
 
-    if (req.user.id != req.params.id) {
+    if (req.user.role !== 'admin' && req.user.id != req.params.id) {
       return res.status(403).json({ message: 'Forbidden' });
     }
 
@@ -48,6 +61,7 @@ async function createUser(req, res) {
       name: req.body.name,
       email: req.body.email,
       password: hashedPassword,
+      role: 'user',
       age: req.body.age,
       height: req.body.height,
       weight: req.body.weight,
@@ -87,9 +101,13 @@ async function loginUser(req, res) {
     }
 
     const token = jwt.sign(
-      { id: user.id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1d' }
+        {
+          id: user.id,
+          email: user.email,
+          role: user.role
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' }
     );
 
     const { password, ...userData } = user.toJSON();
@@ -110,7 +128,7 @@ async function loginUser(req, res) {
 async function deleteUser(req, res) {
   try {
 
-    if (req.user.id != req.params.id) {
+    if (req.user.id != req.params.id && req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Forbidden' });
     }
 
@@ -131,6 +149,7 @@ async function deleteUser(req, res) {
 
 
 module.exports = {
+  getAllUsers,
   getUserById,
   createUser,
   loginUser,
