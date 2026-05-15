@@ -34,18 +34,19 @@ async function getSubscriptionById(req, res) {
 
 async function createSubscription(req, res) {
     try {
+        console.log("✅ Subscription request received");
 
-        if (!req.body.membership_id) {
-            return res.status(400).json({ message: 'membership_id is required' });
+        if (!req.body.membershipId) {
+            return res.status(400).json({ message: 'membershipId is required' });
         }
 
-        const membership = await Membership.findByPk(req.body.membership_id);
+        const membership = await Membership.findByPk(req.body.membershipId);
         if (!membership) {
-            return res.status(400).json({ message: 'Invalid membership_id' });
+            return res.status(400).json({ message: 'Invalid membershipId' });
         }
 
         const subscription = await Subscription.create({
-            membership_id: req.body.membership_id,
+            membershipId: req.body.membershipId,
             start_date: req.body.start_date,
             end_date: req.body.end_date,
             status: req.body.status
@@ -77,6 +78,7 @@ async function updateSubscription(req, res) {
 
 async function deleteSubscription(req, res) {
     try {
+
         const subscription = await Subscription.findByPk(req.params.id);
 
         if (!subscription) {

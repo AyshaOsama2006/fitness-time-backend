@@ -33,6 +33,7 @@ async function createMembership(req, res) {
         }
 
         const membership = await Membership.create({
+            M_id :req.body.M_id,
             name: req.body.name,
             price: req.body.price,
             duration_months: req.body.duration_months,

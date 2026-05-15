@@ -16,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
   Membership.init({
     M_id: DataTypes.INTEGER,
     name: DataTypes.STRING,
-    Price: DataTypes.FLOAT,
-    Description: DataTypes.STRING,
-    DurationMonths: DataTypes.INTEGER
+    price: DataTypes.FLOAT,
+    description: DataTypes.STRING,
+    duration_months: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Membership',

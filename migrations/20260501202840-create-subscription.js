@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      membership_id: {
+      membershipId: {
         type: Sequelize.INTEGER
       },
       start_date: {
