@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-app.use(express.json());
 
 const bookingController = require('../controllers/booking.controller');
 
