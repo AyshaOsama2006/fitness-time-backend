@@ -16,11 +16,4 @@ router.get('/', authMiddleware, roleMiddleware('admin'), userController.getAllUs
 
 router.delete('/:id', authMiddleware, roleMiddleware('admin'), userController.deleteUser);
 
-router.post('/meal-plan', authMiddleware, roleMiddleware('coach', 'admin'),
-
-    (req, res) => {
-        res.json({ message: "Meal plan created" });
-    }
-);
-
 module.exports = router;
