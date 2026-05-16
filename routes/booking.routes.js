@@ -17,10 +17,23 @@ router.get(
   authMiddleware,
   bookingController.getAllBookings
 );
-router.get('/:id', bookingController.getBookingById);
 
-router.put('/:id', bookingController.updateBooking);
+router.get(
+  '/:id',
+  authMiddleware,
+  bookingController.getBookingById
+);
 
-router.delete('/:id', bookingController.deleteBooking);
+router.put(
+  '/:id',
+  authMiddleware,
+  bookingController.updateBooking
+);
+
+router.delete(
+  '/:id',
+  authMiddleware,
+  bookingController.deleteBooking
+);
 
 module.exports = router;
