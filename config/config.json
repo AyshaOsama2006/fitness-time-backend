@@ -1,21 +1,21 @@
 {
   "development": {
     "username": "root",
-    "password": "obayda",
+    "password": "root123",
     "database": "fitness_time",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "obayda",
+    "password": "root123",
     "database": "fitness_time",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "obayda",
+    "password": "root123",
     "database": "fitness_time",
     "host": "127.0.0.1",
     "dialect": "mysql"
