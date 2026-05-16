@@ -13,15 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Membership.init({
-    M_id: DataTypes.INTEGER,
-    name: DataTypes.STRING,
-    price: DataTypes.FLOAT,
-    description: DataTypes.STRING,
-    duration_months: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Membership',
-  });
+Membership.init({
+  M_id: DataTypes.INTEGER,
+  name: DataTypes.STRING,
+  price: DataTypes.FLOAT,
+  description: DataTypes.STRING,
+  DurationMonths: DataTypes.INTEGER
+}, {
+  sequelize,
+  modelName: 'Membership',
+});
   return Membership;
 };
