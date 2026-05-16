@@ -36,7 +36,7 @@ async function createMembership(req, res) {
             M_id :req.body.M_id,
             name: req.body.name,
             price: req.body.price,
-            duration_months: req.body.duration_months,
+            DurationMonths: req.body.DurationMonths,
             description: req.body.description
         });
 

@@ -28,7 +28,11 @@ async function getSubscriptionById(req, res) {
         res.json(subscription);
 
     } catch (err) {
-        res.status(500).json({ message: 'Internal Server Error', error: err.message });
+        console.log("SUBSCRIPTION ERROR:", err);
+res.status(500).json({
+  message: err.message,
+  stack: err.stack
+});
     }
 }
 
